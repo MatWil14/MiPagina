@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color-scheme: light;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: #FFFFFF;
+    color: #0F172A;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: rgba(22, 163, 74, 0.2);
+    color: #0F172A;
+  }
+
+  ::-webkit-scrollbar       { width: 5px; }
+  ::-webkit-scrollbar-track { background: #F8FAFC; }
+  ::-webkit-scrollbar-thumb { background: #16A34A; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #15803D; }
+}
+
+@layer components {
+  /* Light glassmorphism */
+  .glass {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 0, 0, 0.07);
+  }
+
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+  }
+
+  /* Gradient text green → violet */
+  .gradient-text {
+    background: linear-gradient(135deg, #16A34A 0%, #7C3AED 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Hover-lift card with accent border reveal */
+  .glow-card {
+    position: relative;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .glow-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.10), 0 4px 12px rgba(22,163,74,0.10);
+    border-color: rgba(22, 163, 74, 0.35);
+  }
+
+  /* Section heading accent underline */
+  .section-title {
+    position: relative;
+    display: inline-block;
+  }
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 48px;
+    height: 3px;
+    background: linear-gradient(90deg, #16A34A, #7C3AED);
+    border-radius: 2px;
+  }
+
+  /* Skill bar */
+  .skill-bar-fill {
+    height: 100%;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, #16A34A, #7C3AED);
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 0%;
+  }
+  .skill-bar-fill.animate { width: var(--skill-width); }
+}
+
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-32px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(32px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .reveal-right.visible { opacity: 1; transform: translateX(0); }
+}
+
+/* Stagger delays */
+.stagger-children > *:nth-child(1) { transition-delay: 0.05s; }
+.stagger-children > *:nth-child(2) { transition-delay: 0.12s; }
+.stagger-children > *:nth-child(3) { transition-delay: 0.19s; }
+.stagger-children > *:nth-child(4) { transition-delay: 0.26s; }
+.stagger-children > *:nth-child(5) { transition-delay: 0.33s; }
+.stagger-children > *:nth-child(6) { transition-delay: 0.40s; }
+
+/* Subtle dot grid (dark dots on white) */
+.dot-grid {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-left, .reveal-right {
+    opacity: 1; transform: none; transition: none;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
