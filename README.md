@@ -91,3 +91,4 @@ Seguí los pasos del wizard. Vercel detecta Vite automáticamente.
 - **Tailwind CSS 3** — Estilos
 - **CSS Animations** — Efectos y transiciones
 - **Intersection Observer** — Scroll reveal
+"# MiPagina" 
