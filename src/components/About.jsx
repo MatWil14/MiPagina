@@ -58,9 +58,9 @@ export default function About() {
       <div className="relative max-w-6xl mx-auto">
 
         <div className="mb-14 reveal">
-          <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Quién soy</p>
+          <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Quiénes somos</p>
           <h2 className="section-title font-heading font-bold text-3xl sm:text-5xl text-dark">
-            Sobre Mí
+            Sobre Nosotros
           </h2>
         </div>
 
@@ -101,22 +101,22 @@ export default function About() {
           {/* Bio */}
           <div className="reveal-left space-y-5">
             <p className="text-dark-2 text-base sm:text-lg leading-relaxed">
-              Soy <strong className="text-dark font-semibold">Matias Wilder</strong>, desarrollador web
-              enfocado en construir sitios y aplicaciones con los fundamentos del desarrollo:
-              HTML semántico, CSS moderno, JavaScript y SQL.
+              Somos <strong className="text-dark font-semibold">MW Studios</strong>, un estudio de
+              desarrollo web enfocado en construir sitios y aplicaciones con los fundamentos
+              del desarrollo: HTML semántico, CSS moderno, JavaScript y SQL.
             </p>
             <p className="text-muted text-base leading-relaxed">
-              Creo que dominar las bases es lo que diferencia a un buen desarrollador.
-              Me interesa escribir código limpio, estructurado y fácil de mantener.
+              Creemos que dominar las bases es lo que diferencia a un buen producto digital.
+              Trabajamos con código limpio, estructurado y fácil de mantener.
             </p>
             <p className="text-muted text-base leading-relaxed">
-              Actualmente en constante aprendizaje, buscando proyectos donde pueda
-              aportar valor real y seguir creciendo profesionalmente.
+              En constante crecimiento, buscamos proyectos donde podamos aportar
+              valor real y construir soluciones que duren.
             </p>
 
             {/* Tech icons */}
             <div className="mt-6">
-              <p className="text-xs text-muted/60 uppercase tracking-widest mb-4 font-semibold">Stack principal</p>
+              <p className="text-xs text-muted/60 uppercase tracking-widest mb-4 font-semibold">Nuestro stack</p>
               <div className="flex gap-3">
                 {TECH_ICONS.map(({ name, color, path }) => (
                   <div

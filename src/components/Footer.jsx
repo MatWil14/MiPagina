@@ -19,9 +19,9 @@ export default function Footer() {
         <div className="grid sm:grid-cols-3 gap-8 mb-10">
 
           <div className="space-y-3">
-            <p className="font-heading font-bold text-2xl gradient-text">MW</p>
+            <p className="font-heading font-bold text-xl gradient-text tracking-tight">MW Studios</p>
             <p className="text-muted text-sm leading-relaxed max-w-xs">
-              Desarrollador web creando sitios funcionales y bien estructurados.
+              Estudio de desarrollo web. Sitios modernos, funcionales y a medida.
             </p>
           </div>
 
@@ -65,7 +65,7 @@ export default function Footer() {
 
         <div className="border-t border-slate-100 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-muted/50 text-xs">
-            © {new Date().getFullYear()} Matias Wilder. Todos los derechos reservados.
+            © {new Date().getFullYear()} MW Studios. Todos los derechos reservados.
           </p>
           <p className="text-muted/40 text-xs">Hecho con React + Vite + Tailwind CSS</p>
         </div>

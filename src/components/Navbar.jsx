@@ -45,10 +45,10 @@ export default function Navbar() {
         {/* Logo */}
         <button
           onClick={() => scrollTo('inicio')}
-          className="font-heading font-bold text-2xl gradient-text cursor-pointer hover:opacity-75 transition-opacity focus:outline-none focus:ring-2 focus:ring-accent rounded"
+          className="font-heading font-bold text-xl gradient-text cursor-pointer hover:opacity-75 transition-opacity focus:outline-none focus:ring-2 focus:ring-accent rounded tracking-tight"
           aria-label="Ir al inicio"
         >
-          MW
+          MW Studios
         </button>
 
         {/* Desktop links */}

@@ -1,28 +1,39 @@
 import { useState, useEffect } from 'react'
 
 const ROLES = [
-  'Desarrollador Web',
-  'Frontend Developer',
-  'JavaScript Developer',
-  'Web Designer',
-]
-
-const FLOATING_BADGES = [
-  { label: 'HTML',       color: '#E34F26', pos: 'top-6 -left-4 sm:-left-10' },
-  { label: 'CSS',        color: '#1572B6', pos: 'bottom-16 -left-2 sm:-left-8' },
-  { label: 'JavaScript', color: '#F59E0B', pos: 'top-10 -right-4 sm:-right-10' },
-  { label: 'SQL',        color: '#CC2927', pos: 'bottom-8 -right-2 sm:-right-8' },
+  'Desarrollo Web Profesional',
+  'Sitios a Medida',
+  'Experiencias Digitales',
+  'HTML · CSS · JS · SQL',
 ]
 
 function scrollTo(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 }
 
+const CODE_LINES = [
+  { indent: 0, tokens: [{ t: 'keyword', v: 'const ' }, { t: 'var', v: 'studio' }, { t: 'op', v: ' = {' }] },
+  { indent: 1, tokens: [{ t: 'key', v: 'nombre' }, { t: 'op', v: ': ' }, { t: 'str', v: '"MW Studios"' }, { t: 'op', v: ',' }] },
+  { indent: 1, tokens: [{ t: 'key', v: 'stack' }, { t: 'op', v: ': ' }, { t: 'op', v: '[' }, { t: 'str', v: '"HTML"' }, { t: 'op', v: ', ' }, { t: 'str', v: '"CSS"' }, { t: 'op', v: ', ' }, { t: 'str', v: '"JS"' }, { t: 'op', v: ', ' }, { t: 'str', v: '"SQL"' }, { t: 'op', v: '],' }] },
+  { indent: 1, tokens: [{ t: 'key', v: 'proyectos' }, { t: 'op', v: ': ' }, { t: 'num', v: '10' }, { t: 'op', v: '+,' }] },
+  { indent: 1, tokens: [{ t: 'key', v: 'disponible' }, { t: 'op', v: ': ' }, { t: 'bool', v: 'true' }] },
+  { indent: 0, tokens: [{ t: 'op', v: '}' }] },
+]
+
+const TOKEN_COLORS = {
+  keyword: '#7C3AED',
+  var:     '#0F172A',
+  key:     '#16A34A',
+  str:     '#DC2626',
+  bool:    '#EA580C',
+  num:     '#2563EB',
+  op:      '#64748B',
+}
+
 export default function Hero() {
   const [displayed,  setDisplayed]  = useState('')
   const [roleIndex,  setRoleIndex]  = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
-  const [imgError,   setImgError]   = useState(false)
 
   useEffect(() => {
     const target = ROLES[roleIndex]
@@ -31,7 +42,7 @@ export default function Hero() {
         const t = setTimeout(() => setIsDeleting(true), 2200)
         return () => clearTimeout(t)
       }
-      const t = setTimeout(() => setDisplayed(target.slice(0, displayed.length + 1)), 100)
+      const t = setTimeout(() => setDisplayed(target.slice(0, displayed.length + 1)), 80)
       return () => clearTimeout(t)
     }
     if (displayed === '') {
@@ -39,7 +50,7 @@ export default function Hero() {
       setRoleIndex((i) => (i + 1) % ROLES.length)
       return
     }
-    const t = setTimeout(() => setDisplayed((p) => p.slice(0, -1)), 50)
+    const t = setTimeout(() => setDisplayed((p) => p.slice(0, -1)), 40)
     return () => clearTimeout(t)
   }, [displayed, isDeleting, roleIndex])
 
@@ -58,7 +69,7 @@ export default function Hero() {
       <div className="relative z-10 max-w-6xl mx-auto w-full">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-          {/* LEFT */}
+          {/* LEFT — Text */}
           <div className="order-2 lg:order-1">
 
             <div
@@ -73,11 +84,11 @@ export default function Hero() {
               className="font-heading font-bold mb-4 animate-fade-in-up"
               style={{ opacity: 0, animationFillMode: 'forwards', animationDelay: '0.1s' }}
             >
-              <span className="block text-muted text-lg sm:text-xl font-medium tracking-widest uppercase mb-1">
-                Hola, soy
+              <span className="block text-muted text-lg sm:text-xl font-medium tracking-widest uppercase mb-2">
+                Estudio de desarrollo web
               </span>
-              <span className="gradient-text text-4xl sm:text-6xl md:text-7xl leading-[1.1]">
-                Matias<br />Wilder
+              <span className="gradient-text text-5xl sm:text-7xl md:text-8xl leading-[1.05]">
+                MW<br />Studios
               </span>
             </h1>
 
@@ -86,7 +97,7 @@ export default function Hero() {
               style={{ opacity: 0, animationFillMode: 'forwards', animationDelay: '0.25s' }}
             >
               <span className="w-8 h-px bg-accent/50" />
-              <p className="font-heading text-lg sm:text-xl text-muted font-medium">
+              <p className="font-heading text-base sm:text-lg text-muted font-medium">
                 {displayed}
                 <span className="inline-block w-0.5 h-5 bg-accent ml-0.5 animate-cursor-blink align-middle" />
               </p>
@@ -96,8 +107,8 @@ export default function Hero() {
               className="text-muted text-base sm:text-lg leading-relaxed mb-8 max-w-md animate-fade-in-up"
               style={{ opacity: 0, animationFillMode: 'forwards', animationDelay: '0.38s' }}
             >
-              Construyo sitios web limpios, funcionales y bien estructurados.
-              Especializado en los fundamentos del desarrollo web.
+              Creamos sitios web modernos, funcionales y a medida.
+              Desde la idea hasta el deploy, con foco en calidad y resultados.
             </p>
 
             <div
@@ -117,7 +128,7 @@ export default function Hero() {
                 onClick={() => scrollTo('contacto')}
                 className="flex items-center justify-center gap-2 bg-white border border-slate-200 hover:border-accent/40 hover:bg-slate-50 text-dark font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 cursor-pointer hover:-translate-y-1 shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-200"
               >
-                Contactarme
+                Contactarnos
               </button>
             </div>
 
@@ -138,74 +149,51 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* RIGHT — Photo */}
+          {/* RIGHT — Code card */}
           <div
             className="order-1 lg:order-2 flex justify-center lg:justify-end animate-fade-in"
             style={{ opacity: 0, animationFillMode: 'forwards', animationDelay: '0.2s' }}
           >
-            <div className="relative">
-              {/* Soft glow behind photo */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-accent/20 to-violet/20 blur-2xl scale-110" />
+            <div className="relative w-full max-w-sm">
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent/15 to-violet/15 blur-2xl scale-105" />
 
-              {/* Gradient border */}
-              <div
-                className="absolute -inset-[2px] rounded-3xl animate-gradient-x"
-                style={{
-                  background: 'linear-gradient(135deg, #16A34A, #7C3AED, #16A34A)',
-                  backgroundSize: '200% 200%',
-                  zIndex: 0,
-                }}
-              />
+              <div className="relative bg-slate-900 rounded-2xl overflow-hidden shadow-2xl border border-slate-700/50">
+                {/* Title bar */}
+                <div className="flex items-center gap-2 px-4 py-3 bg-slate-800/80 border-b border-slate-700/50">
+                  <span className="w-3 h-3 rounded-full bg-red-500/80" />
+                  <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                  <span className="w-3 h-3 rounded-full bg-green-500/80" />
+                  <span className="ml-2 text-slate-400 text-xs font-mono">mw-studios.js</span>
+                </div>
 
-              {/* Photo */}
-              <div className="relative z-10 w-64 h-80 sm:w-80 sm:h-96 rounded-3xl overflow-hidden bg-slate-100">
-                {!imgError ? (
-                  <img
-                    src="/profile.jpg"
-                    alt="Matias Wilder"
-                    className="w-full h-full object-cover object-top"
-                    onError={() => setImgError(true)}
-                  />
-                ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 gap-3">
-                    <div className="w-24 h-24 rounded-full bg-accent/10 border-2 border-accent/20 flex items-center justify-center">
-                      <svg className="w-12 h-12 text-accent/40" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1}
-                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                      </svg>
+                {/* Code */}
+                <div className="p-5 font-mono text-sm leading-7">
+                  {CODE_LINES.map((line, i) => (
+                    <div key={i} style={{ paddingLeft: `${line.indent * 1.25}rem` }}>
+                      {line.tokens.map((tok, j) => (
+                        <span key={j} style={{ color: TOKEN_COLORS[tok.t] }}>{tok.v}</span>
+                      ))}
                     </div>
-                    <p className="text-muted/60 text-xs text-center px-4">
-                      Guardá tu foto como<br />
-                      <code className="text-accent/70 font-mono">public/profile.jpg</code>
-                    </p>
-                  </div>
-                )}
+                  ))}
+                </div>
+
+                {/* Status bar */}
+                <div className="flex items-center justify-between px-4 py-2 bg-accent text-white text-xs font-mono">
+                  <span>✓ listos para tu proyecto</span>
+                  <span>MW Studios</span>
+                </div>
               </div>
 
-              {/* Floating tech badges */}
-              {FLOATING_BADGES.map(({ label, color, pos }) => (
-                <div
-                  key={label}
-                  className={`absolute ${pos} bg-white border border-slate-200 shadow-md px-3 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-semibold text-dark z-20`}
-                >
-                  <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: color }} />
-                  {label}
-                </div>
-              ))}
-
-              {/* Decorative dots */}
-              <div className="absolute -bottom-4 -right-4 w-20 h-20 opacity-30" aria-hidden="true"
-                style={{ backgroundImage: 'radial-gradient(rgba(22,163,74,0.6) 1.5px, transparent 1.5px)', backgroundSize: '8px 8px' }}
-              />
-              <div className="absolute -top-4 -left-4 w-16 h-16 opacity-30" aria-hidden="true"
-                style={{ backgroundImage: 'radial-gradient(rgba(124,58,237,0.6) 1.5px, transparent 1.5px)', backgroundSize: '8px 8px' }}
-              />
+              <div className="absolute -bottom-4 -right-4 w-20 h-20 opacity-25" aria-hidden="true"
+                style={{ backgroundImage: 'radial-gradient(rgba(22,163,74,0.7) 1.5px, transparent 1.5px)', backgroundSize: '8px 8px' }} />
+              <div className="absolute -top-4 -left-4 w-16 h-16 opacity-25" aria-hidden="true"
+                style={{ backgroundImage: 'radial-gradient(rgba(124,58,237,0.7) 1.5px, transparent 1.5px)', backgroundSize: '8px 8px' }} />
             </div>
           </div>
+
         </div>
       </div>
 
-      {/* Scroll cue */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 animate-bounce opacity-30" aria-hidden="true">
         <span className="text-muted text-[9px] tracking-[0.25em] uppercase">scroll</span>
         <svg className="w-4 h-4 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">

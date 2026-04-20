@@ -63,7 +63,7 @@ export default function Contact() {
             Contacto
           </h2>
           <p className="text-muted text-base sm:text-lg max-w-lg leading-relaxed mt-6">
-            ¿Tenés un proyecto en mente? Escribime y lo charlamos.
+            ¿Tenés un proyecto en mente? Escribinos y lo charlamos.
           </p>
         </div>
 
@@ -106,7 +106,7 @@ export default function Contact() {
 
             <div className="flex items-center gap-3 pt-1">
               <span className="w-2.5 h-2.5 rounded-full bg-accent animate-pulse" />
-              <span className="text-muted text-sm font-medium">Disponible para freelance y proyectos</span>
+              <span className="text-muted text-sm font-medium">Disponibles para nuevos proyectos</span>
             </div>
           </div>
 
@@ -123,7 +123,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="font-heading font-bold text-dark text-lg mb-1">¡Mensaje enviado!</h3>
-                  <p className="text-muted text-sm">Te respondo a la brevedad. Gracias por escribirme.</p>
+                  <p className="text-muted text-sm">Nos ponemos en contacto a la brevedad. ¡Gracias!</p>
                 </div>
               </div>
             )}
