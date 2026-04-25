@@ -1,18 +1,22 @@
+import { useLanguage } from '../contexts/LanguageContext'
+
 const EMAIL    = 'Matiwilder07@gmail.com'
 const LINKEDIN = 'https://www.linkedin.com/in/mat%C3%ADaswilder'
-
-const NAV = [
-  { label: 'Inicio',    href: 'inicio' },
-  { label: 'Proyectos', href: 'proyectos' },
-  { label: 'Sobre Mí', href: 'sobre-mi' },
-  { label: 'Contacto', href: 'contacto' },
-]
 
 function scrollTo(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 }
 
 export default function Footer() {
+  const { t } = useLanguage()
+
+  const NAV = [
+    { label: t.nav.inicio,    href: 'inicio' },
+    { label: t.nav.proyectos, href: 'proyectos' },
+    { label: t.nav.sobreMi,   href: 'sobre-mi' },
+    { label: t.nav.contacto,  href: 'contacto' },
+  ]
+
   return (
     <footer className="relative border-t border-slate-200 bg-white py-12 px-4">
       <div className="max-w-6xl mx-auto">
@@ -21,12 +25,12 @@ export default function Footer() {
           <div className="space-y-3">
             <p className="font-heading font-bold text-xl gradient-text tracking-tight">MW Studios</p>
             <p className="text-muted text-sm leading-relaxed max-w-xs">
-              Estudio de desarrollo web. Sitios modernos, funcionales y a medida.
+              {t.footer.tagline}
             </p>
           </div>
 
           <div className="space-y-3">
-            <p className="text-xs font-bold text-dark/40 uppercase tracking-widest">Navegación</p>
+            <p className="text-xs font-bold text-dark/40 uppercase tracking-widest">{t.footer.navLabel}</p>
             <ul className="space-y-2">
               {NAV.map(({ label, href }) => (
                 <li key={href}>
@@ -42,7 +46,7 @@ export default function Footer() {
           </div>
 
           <div className="space-y-3">
-            <p className="text-xs font-bold text-dark/40 uppercase tracking-widest">Contacto</p>
+            <p className="text-xs font-bold text-dark/40 uppercase tracking-widest">{t.footer.contactLabel}</p>
             <ul className="space-y-2">
               <li>
                 <a href={`mailto:${EMAIL}`}
@@ -65,9 +69,9 @@ export default function Footer() {
 
         <div className="border-t border-slate-100 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-muted/50 text-xs">
-            © {new Date().getFullYear()} MW Studios. Todos los derechos reservados.
+            © {new Date().getFullYear()} {t.footer.copy}
           </p>
-          <p className="text-muted/40 text-xs">Hecho con React + Vite + Tailwind CSS</p>
+          <p className="text-muted/40 text-xs">{t.footer.madeWith}</p>
         </div>
       </div>
     </footer>

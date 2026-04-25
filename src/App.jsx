@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { LanguageProvider } from './contexts/LanguageContext'
 import Navbar   from './components/Navbar'
 import Hero     from './components/Hero'
 import Projects from './components/Projects'
@@ -6,7 +7,7 @@ import About    from './components/About'
 import Contact  from './components/Contact'
 import Footer   from './components/Footer'
 
-export default function App() {
+function AppContent() {
   useEffect(() => {
     const targets = document.querySelectorAll('.reveal, .reveal-left, .reveal-right')
     const observer = new IntersectionObserver(
@@ -35,5 +36,13 @@ export default function App() {
       </main>
       <Footer />
     </div>
+  )
+}
+
+export default function App() {
+  return (
+    <LanguageProvider>
+      <AppContent />
+    </LanguageProvider>
   )
 }

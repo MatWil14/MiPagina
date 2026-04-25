@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useLanguage } from '../contexts/LanguageContext'
 
 const EMAIL    = 'Matiwilder07@gmail.com'
 const LINKEDIN = 'https://www.linkedin.com/in/mat%C3%ADaswilder'
@@ -6,6 +7,7 @@ const LINKEDIN = 'https://www.linkedin.com/in/mat%C3%ADaswilder'
 const STATUS = { IDLE: 'idle', LOADING: 'loading', SUCCESS: 'success', ERROR: 'error' }
 
 export default function Contact() {
+  const { t } = useLanguage()
   const [form,   setForm]   = useState({ name: '', email: '', message: '' })
   const [status, setStatus] = useState(STATUS.IDLE)
 
@@ -58,12 +60,12 @@ export default function Contact() {
       <div className="relative max-w-6xl mx-auto">
 
         <div className="mb-14 reveal">
-          <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Hablemos</p>
+          <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">{t.contact.eyebrow}</p>
           <h2 className="section-title font-heading font-bold text-3xl sm:text-5xl text-dark">
-            Contacto
+            {t.contact.title}
           </h2>
           <p className="text-muted text-base sm:text-lg max-w-lg leading-relaxed mt-6">
-            ¿Tenés un proyecto en mente? Escribinos y lo charlamos.
+            {t.contact.description}
           </p>
         </div>
 
@@ -82,7 +84,7 @@ export default function Contact() {
                 </svg>
               </div>
               <div>
-                <p className="text-xs text-muted/70 uppercase tracking-wide mb-0.5 font-medium">Email</p>
+                <p className="text-xs text-muted/70 uppercase tracking-wide mb-0.5 font-medium">{t.contact.emailLabel}</p>
                 <p className="text-dark text-sm font-semibold">{EMAIL}</p>
               </div>
             </a>
@@ -99,14 +101,14 @@ export default function Contact() {
                 </svg>
               </div>
               <div>
-                <p className="text-xs text-muted/70 uppercase tracking-wide mb-0.5 font-medium">LinkedIn</p>
+                <p className="text-xs text-muted/70 uppercase tracking-wide mb-0.5 font-medium">{t.contact.linkedinLabel}</p>
                 <p className="text-dark text-sm font-semibold">Matías Wilder</p>
               </div>
             </a>
 
             <div className="flex items-center gap-3 pt-1">
               <span className="w-2.5 h-2.5 rounded-full bg-accent animate-pulse" />
-              <span className="text-muted text-sm font-medium">Disponibles para nuevos proyectos</span>
+              <span className="text-muted text-sm font-medium">{t.contact.available}</span>
             </div>
           </div>
 
@@ -122,8 +124,8 @@ export default function Contact() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-heading font-bold text-dark text-lg mb-1">¡Mensaje enviado!</h3>
-                  <p className="text-muted text-sm">Nos ponemos en contacto a la brevedad. ¡Gracias!</p>
+                  <h3 className="font-heading font-bold text-dark text-lg mb-1">{t.contact.successTitle}</h3>
+                  <p className="text-muted text-sm">{t.contact.successMsg}</p>
                 </div>
               </div>
             )}
@@ -135,7 +137,7 @@ export default function Contact() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <p className="text-red-700 text-sm">
-                  Hubo un error al enviar. Intentá de nuevo o escribime directamente a{' '}
+                  {t.contact.errorMsg}{' '}
                   <a href={`mailto:${EMAIL}`} className="underline font-medium">{EMAIL}</a>
                 </p>
               </div>
@@ -151,11 +153,11 @@ export default function Contact() {
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
                     <label htmlFor="name" className="block text-xs font-semibold text-muted uppercase tracking-wide">
-                      Nombre
+                      {t.contact.nameLbl}
                     </label>
                     <input
                       id="name" name="name" type="text" required
-                      placeholder="Tu nombre"
+                      placeholder={t.contact.namePh}
                       value={form.name} onChange={handleChange}
                       disabled={isLoading}
                       className={inputBase}
@@ -163,11 +165,11 @@ export default function Contact() {
                   </div>
                   <div className="space-y-1.5">
                     <label htmlFor="email" className="block text-xs font-semibold text-muted uppercase tracking-wide">
-                      Email
+                      {t.contact.emailLbl}
                     </label>
                     <input
                       id="email" name="email" type="email" required
-                      placeholder="tu@email.com"
+                      placeholder={t.contact.emailPh}
                       value={form.email} onChange={handleChange}
                       disabled={isLoading}
                       className={inputBase}
@@ -177,11 +179,11 @@ export default function Contact() {
 
                 <div className="space-y-1.5">
                   <label htmlFor="message" className="block text-xs font-semibold text-muted uppercase tracking-wide">
-                    Mensaje
+                    {t.contact.messageLbl}
                   </label>
                   <textarea
                     id="message" name="message" rows={5} required
-                    placeholder="Contame sobre tu proyecto..."
+                    placeholder={t.contact.messagePh}
                     value={form.message} onChange={handleChange}
                     disabled={isLoading}
                     className={`${inputBase} resize-none`}
@@ -202,20 +204,20 @@ export default function Contact() {
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                       </svg>
-                      Enviando...
+                      {t.contact.sending}
                     </>
                   ) : (
                     <>
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                       </svg>
-                      Enviar mensaje
+                      {t.contact.sendBtn}
                     </>
                   )}
                 </button>
 
                 <p className="text-center text-muted/50 text-xs">
-                  El mensaje llega directamente a mi email.
+                  {t.contact.footNote}
                 </p>
               </form>
             )}

@@ -1,4 +1,5 @@
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
+import { useLanguage } from '../contexts/LanguageContext'
 
 const SKILLS = [
   { name: 'HTML',       pct: 92, color: '#E34F26' },
@@ -48,7 +49,27 @@ function SkillBar({ name, pct, color, visible }) {
 }
 
 export default function About() {
+  const { t } = useLanguage()
   const [skillsRef, skillsVisible] = useIntersectionObserver({ threshold: 0.3 })
+
+  const CARDS = [
+    {
+      icon: <svg className="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>,
+      value: '2+', label: t.about.cards[0],
+    },
+    {
+      icon: <svg className="w-5 h-5 text-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>,
+      value: '10+', label: t.about.cards[1],
+    },
+    {
+      icon: <svg className="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>,
+      value: '4', label: t.about.cards[2],
+    },
+    {
+      icon: <svg className="w-5 h-5 text-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>,
+      value: '100%', label: t.about.cards[3],
+    },
+  ]
 
   return (
     <section id="sobre-mi" className="relative py-24 px-4 bg-white overflow-hidden">
@@ -58,32 +79,15 @@ export default function About() {
       <div className="relative max-w-6xl mx-auto">
 
         <div className="mb-14 reveal">
-          <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">Quiénes somos</p>
+          <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">{t.about.eyebrow}</p>
           <h2 className="section-title font-heading font-bold text-3xl sm:text-5xl text-dark">
-            Sobre Nosotros
+            {t.about.title}
           </h2>
         </div>
 
         {/* Info cards */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-16 reveal">
-          {[
-            {
-              icon: <svg className="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>,
-              value: '2+', label: 'Años de experiencia',
-            },
-            {
-              icon: <svg className="w-5 h-5 text-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>,
-              value: '10+', label: 'Proyectos realizados',
-            },
-            {
-              icon: <svg className="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>,
-              value: '4', label: 'Tecnologías core',
-            },
-            {
-              icon: <svg className="w-5 h-5 text-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>,
-              value: '100%', label: 'Dedicación',
-            },
-          ].map(({ icon, value, label }) => (
+          {CARDS.map(({ icon, value, label }) => (
             <div key={label} className="bg-white border border-slate-200 rounded-2xl p-5 flex flex-col gap-3 shadow-card hover:shadow-card-hover transition-shadow duration-300">
               <div className="w-9 h-9 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center">
                 {icon}
@@ -100,23 +104,14 @@ export default function About() {
 
           {/* Bio */}
           <div className="reveal-left space-y-5">
-            <p className="text-dark-2 text-base sm:text-lg leading-relaxed">
-              Somos <strong className="text-dark font-semibold">MW Studios</strong>, un estudio de
-              desarrollo web enfocado en construir sitios y aplicaciones con los fundamentos
-              del desarrollo: HTML semántico, CSS moderno, JavaScript y SQL.
-            </p>
-            <p className="text-muted text-base leading-relaxed">
-              Creemos que dominar las bases es lo que diferencia a un buen producto digital.
-              Trabajamos con código limpio, estructurado y fácil de mantener.
-            </p>
-            <p className="text-muted text-base leading-relaxed">
-              En constante crecimiento, buscamos proyectos donde podamos aportar
-              valor real y construir soluciones que duren.
-            </p>
+            <p className="text-dark-2 text-base sm:text-lg leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: t.about.bio1 }} />
+            <p className="text-muted text-base leading-relaxed">{t.about.bio2}</p>
+            <p className="text-muted text-base leading-relaxed">{t.about.bio3}</p>
 
             {/* Tech icons */}
             <div className="mt-6">
-              <p className="text-xs text-muted/60 uppercase tracking-widest mb-4 font-semibold">Nuestro stack</p>
+              <p className="text-xs text-muted/60 uppercase tracking-widest mb-4 font-semibold">{t.about.stackLabel}</p>
               <div className="flex gap-3">
                 {TECH_ICONS.map(({ name, color, path }) => (
                   <div
@@ -141,14 +136,14 @@ export default function About() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                     d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
-                Solicitar CV por email
+                {t.about.cvBtn}
               </a>
             </div>
           </div>
 
           {/* Skill bars */}
           <div ref={skillsRef} className="reveal-right space-y-6">
-            <p className="text-xs text-muted/60 uppercase tracking-widest font-semibold">Nivel de habilidades</p>
+            <p className="text-xs text-muted/60 uppercase tracking-widest font-semibold">{t.about.skillsLabel}</p>
             {SKILLS.map((skill) => (
               <SkillBar key={skill.name} {...skill} visible={skillsVisible} />
             ))}

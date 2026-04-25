@@ -1,17 +1,11 @@
 import { useState, useEffect } from 'react'
-
-const ROLES = [
-  'Desarrollo Web Profesional',
-  'Sitios a Medida',
-  'Experiencias Digitales',
-  'HTML · CSS · JS · SQL',
-]
+import { useLanguage } from '../contexts/LanguageContext'
 
 function scrollTo(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 }
 
-const CODE_LINES = [
+const CODE_LINES = (codeStatus) => [
   { indent: 0, tokens: [{ t: 'keyword', v: 'const ' }, { t: 'var', v: 'studio' }, { t: 'op', v: ' = {' }] },
   { indent: 1, tokens: [{ t: 'key', v: 'nombre' }, { t: 'op', v: ': ' }, { t: 'str', v: '"MW Studios"' }, { t: 'op', v: ',' }] },
   { indent: 1, tokens: [{ t: 'key', v: 'stack' }, { t: 'op', v: ': ' }, { t: 'op', v: '[' }, { t: 'str', v: '"HTML"' }, { t: 'op', v: ', ' }, { t: 'str', v: '"CSS"' }, { t: 'op', v: ', ' }, { t: 'str', v: '"JS"' }, { t: 'op', v: ', ' }, { t: 'str', v: '"SQL"' }, { t: 'op', v: '],' }] },
@@ -21,44 +15,48 @@ const CODE_LINES = [
 ]
 
 const TOKEN_COLORS = {
-  keyword: '#7C3AED',
-  var:     '#0F172A',
-  key:     '#16A34A',
-  str:     '#DC2626',
-  bool:    '#EA580C',
-  num:     '#2563EB',
-  op:      '#64748B',
+  keyword: '#7C3AED', var: '#0F172A', key: '#16A34A',
+  str: '#DC2626', bool: '#EA580C', num: '#2563EB', op: '#64748B',
 }
 
 export default function Hero() {
+  const { t } = useLanguage()
+  const roles = t.hero.roles
+
   const [displayed,  setDisplayed]  = useState('')
   const [roleIndex,  setRoleIndex]  = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
 
+  /* Reset typing when language changes */
   useEffect(() => {
-    const target = ROLES[roleIndex]
+    setDisplayed('')
+    setRoleIndex(0)
+    setIsDeleting(false)
+  }, [t])
+
+  useEffect(() => {
+    const target = roles[roleIndex]
     if (!isDeleting) {
       if (displayed === target) {
-        const t = setTimeout(() => setIsDeleting(true), 2200)
-        return () => clearTimeout(t)
+        const timer = setTimeout(() => setIsDeleting(true), 2200)
+        return () => clearTimeout(timer)
       }
-      const t = setTimeout(() => setDisplayed(target.slice(0, displayed.length + 1)), 80)
-      return () => clearTimeout(t)
+      const timer = setTimeout(() => setDisplayed(target.slice(0, displayed.length + 1)), 80)
+      return () => clearTimeout(timer)
     }
     if (displayed === '') {
       setIsDeleting(false)
-      setRoleIndex((i) => (i + 1) % ROLES.length)
+      setRoleIndex((i) => (i + 1) % roles.length)
       return
     }
-    const t = setTimeout(() => setDisplayed((p) => p.slice(0, -1)), 40)
-    return () => clearTimeout(t)
-  }, [displayed, isDeleting, roleIndex])
+    const timer = setTimeout(() => setDisplayed((p) => p.slice(0, -1)), 40)
+    return () => clearTimeout(timer)
+  }, [displayed, isDeleting, roleIndex, roles])
+
+  const lines = CODE_LINES(t.hero.codeStatus)
 
   return (
-    <section
-      id="inicio"
-      className="relative min-h-screen flex items-center overflow-hidden px-4 pt-20 pb-12 bg-white"
-    >
+    <section id="inicio" className="relative min-h-screen flex items-center overflow-hidden px-4 pt-20 pb-12 bg-white">
       {/* Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
         <div className="absolute -top-40 right-0 w-[600px] h-[600px] rounded-full bg-accent/8 blur-[140px] animate-float" />
@@ -69,15 +67,14 @@ export default function Hero() {
       <div className="relative z-10 max-w-6xl mx-auto w-full">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-          {/* LEFT — Text */}
+          {/* LEFT */}
           <div className="order-2 lg:order-1">
-
             <div
               className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 px-4 py-2 rounded-full mb-7 animate-fade-in"
               style={{ opacity: 0, animationFillMode: 'forwards' }}
             >
               <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-              <span className="text-accent text-sm font-semibold">Disponible para proyectos</span>
+              <span className="text-accent text-sm font-semibold">{t.hero.badge}</span>
             </div>
 
             <h1
@@ -85,7 +82,7 @@ export default function Hero() {
               style={{ opacity: 0, animationFillMode: 'forwards', animationDelay: '0.1s' }}
             >
               <span className="block text-muted text-lg sm:text-xl font-medium tracking-widest uppercase mb-2">
-                Estudio de desarrollo web
+                {t.hero.eyebrow}
               </span>
               <span className="gradient-text text-5xl sm:text-7xl md:text-8xl leading-[1.05]">
                 MW<br />Studios
@@ -96,7 +93,7 @@ export default function Hero() {
               className="flex items-center gap-2 mb-5 h-9 animate-fade-in-up"
               style={{ opacity: 0, animationFillMode: 'forwards', animationDelay: '0.25s' }}
             >
-              <span className="w-8 h-px bg-accent/50" />
+              <span className="w-8 h-px bg-accent/50 flex-shrink-0" />
               <p className="font-heading text-base sm:text-lg text-muted font-medium">
                 {displayed}
                 <span className="inline-block w-0.5 h-5 bg-accent ml-0.5 animate-cursor-blink align-middle" />
@@ -107,8 +104,7 @@ export default function Hero() {
               className="text-muted text-base sm:text-lg leading-relaxed mb-8 max-w-md animate-fade-in-up"
               style={{ opacity: 0, animationFillMode: 'forwards', animationDelay: '0.38s' }}
             >
-              Creamos sitios web modernos, funcionales y a medida.
-              Desde la idea hasta el deploy, con foco en calidad y resultados.
+              {t.hero.description}
             </p>
 
             <div
@@ -119,7 +115,7 @@ export default function Hero() {
                 onClick={() => scrollTo('proyectos')}
                 className="group flex items-center justify-center gap-2 bg-accent hover:bg-accent-dark text-white font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 cursor-pointer hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-accent"
               >
-                Ver proyectos
+                {t.hero.cta1}
                 <svg className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -128,7 +124,7 @@ export default function Hero() {
                 onClick={() => scrollTo('contacto')}
                 className="flex items-center justify-center gap-2 bg-white border border-slate-200 hover:border-accent/40 hover:bg-slate-50 text-dark font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 cursor-pointer hover:-translate-y-1 shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-200"
               >
-                Contactarnos
+                {t.hero.cta2}
               </button>
             </div>
 
@@ -136,11 +132,7 @@ export default function Hero() {
               className="flex gap-8 pt-6 border-t border-slate-100 animate-fade-in"
               style={{ opacity: 0, animationFillMode: 'forwards', animationDelay: '0.7s' }}
             >
-              {[
-                { value: '10+', label: 'Proyectos' },
-                { value: '2+',  label: 'Años exp.' },
-                { value: '4',   label: 'Tecnologías' },
-              ].map(({ value, label }) => (
+              {t.hero.stats.map(({ value, label }) => (
                 <div key={label}>
                   <p className="font-heading font-bold text-2xl sm:text-3xl gradient-text">{value}</p>
                   <p className="text-muted text-xs mt-0.5">{label}</p>
@@ -156,19 +148,15 @@ export default function Hero() {
           >
             <div className="relative w-full max-w-sm">
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent/15 to-violet/15 blur-2xl scale-105" />
-
               <div className="relative bg-slate-900 rounded-2xl overflow-hidden shadow-2xl border border-slate-700/50">
-                {/* Title bar */}
                 <div className="flex items-center gap-2 px-4 py-3 bg-slate-800/80 border-b border-slate-700/50">
                   <span className="w-3 h-3 rounded-full bg-red-500/80" />
                   <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
                   <span className="w-3 h-3 rounded-full bg-green-500/80" />
                   <span className="ml-2 text-slate-400 text-xs font-mono">mw-studios.js</span>
                 </div>
-
-                {/* Code */}
                 <div className="p-5 font-mono text-sm leading-7">
-                  {CODE_LINES.map((line, i) => (
+                  {lines.map((line, i) => (
                     <div key={i} style={{ paddingLeft: `${line.indent * 1.25}rem` }}>
                       {line.tokens.map((tok, j) => (
                         <span key={j} style={{ color: TOKEN_COLORS[tok.t] }}>{tok.v}</span>
@@ -176,14 +164,11 @@ export default function Hero() {
                     </div>
                   ))}
                 </div>
-
-                {/* Status bar */}
                 <div className="flex items-center justify-between px-4 py-2 bg-accent text-white text-xs font-mono">
-                  <span>✓ listos para tu proyecto</span>
+                  <span>✓ {t.hero.codeStatus}</span>
                   <span>MW Studios</span>
                 </div>
               </div>
-
               <div className="absolute -bottom-4 -right-4 w-20 h-20 opacity-25" aria-hidden="true"
                 style={{ backgroundImage: 'radial-gradient(rgba(22,163,74,0.7) 1.5px, transparent 1.5px)', backgroundSize: '8px 8px' }} />
               <div className="absolute -top-4 -left-4 w-16 h-16 opacity-25" aria-hidden="true"
