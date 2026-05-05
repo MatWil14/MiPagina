@@ -1,18 +1,18 @@
 [
   {
     "id": 1,
-    "name": "BPI GmbH — Web Corporativa",
-    "description": "Sitio web corporativo para empresa alemana especializada en automatización de procesos financieros SAP. Diseño moderno, responsive y orientado a clientes enterprise.",
-    "technologies": ["React", "Tailwind CSS", "Vite", "Vercel"],
-    "link": "https://bpi-gmb-h.vercel.app",
-    "featured": true
-  },
-  {
-    "id": 2,
     "name": "CJ Traducciones",
     "description": "Sitio web profesional para traductora certificada especializada en traducción inglés-español. Incluye presentación de servicios, áreas de especialización y formulario de contacto.",
     "technologies": ["HTML", "CSS", "JavaScript", "Vercel"],
     "link": "https://cj-traducciones.vercel.app",
+    "featured": true
+  },
+  {
+    "id": 2,
+    "name": "The Wood Spirit",
+    "description": "Proyecto interactivo con tecnologías modernas de desarrollo web.",
+    "technologies": ["React", "Tailwind CSS", "Vite", "Vercel"],
+    "link": "https://the-wood-spirit.vercel.app",
     "featured": true
   }
 ]

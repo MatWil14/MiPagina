@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLanguage } from '../contexts/LanguageContext'
 import projectsData from '../data/projects.json'
-import ProjectCard  from './ProjectCard'
+import ProjectCard from './ProjectCard'
 
 export default function Projects() {
   const { t } = useLanguage()
