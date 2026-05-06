@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useLanguage } from '../contexts/LanguageContext'
+import HeroScene from './HeroScene'
 
 function scrollTo(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
@@ -141,40 +142,8 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* RIGHT — Code card */}
-          <div
-            className="order-1 lg:order-2 flex justify-center lg:justify-end animate-fade-in"
-            style={{ opacity: 0, animationFillMode: 'forwards', animationDelay: '0.2s' }}
-          >
-            <div className="relative w-full max-w-sm">
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent/15 to-violet/15 blur-2xl scale-105" />
-              <div className="relative bg-slate-900 rounded-2xl overflow-hidden shadow-2xl border border-slate-700/50">
-                <div className="flex items-center gap-2 px-4 py-3 bg-slate-800/80 border-b border-slate-700/50">
-                  <span className="w-3 h-3 rounded-full bg-red-500/80" />
-                  <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                  <span className="w-3 h-3 rounded-full bg-green-500/80" />
-                  <span className="ml-2 text-slate-400 text-xs font-mono">mw-studios.js</span>
-                </div>
-                <div className="p-5 font-mono text-sm leading-7">
-                  {lines.map((line, i) => (
-                    <div key={i} style={{ paddingLeft: `${line.indent * 1.25}rem` }}>
-                      {line.tokens.map((tok, j) => (
-                        <span key={j} style={{ color: TOKEN_COLORS[tok.t] }}>{tok.v}</span>
-                      ))}
-                    </div>
-                  ))}
-                </div>
-                <div className="flex items-center justify-between px-4 py-2 bg-accent text-white text-xs font-mono">
-                  <span>✓ {t.hero.codeStatus}</span>
-                  <span>MW Studios</span>
-                </div>
-              </div>
-              <div className="absolute -bottom-4 -right-4 w-20 h-20 opacity-25" aria-hidden="true"
-                style={{ backgroundImage: 'radial-gradient(rgba(22,163,74,0.7) 1.5px, transparent 1.5px)', backgroundSize: '8px 8px' }} />
-              <div className="absolute -top-4 -left-4 w-16 h-16 opacity-25" aria-hidden="true"
-                style={{ backgroundImage: 'radial-gradient(rgba(124,58,237,0.7) 1.5px, transparent 1.5px)', backgroundSize: '8px 8px' }} />
-            </div>
-          </div>
+          {/* RIGHT — 3D Scene */}
+          <HeroScene />
 
         </div>
       </div>
